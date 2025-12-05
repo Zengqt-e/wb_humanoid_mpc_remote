@@ -1,45 +1,124 @@
-ARG ROS_DISTRO=jazzy
-ARG BASE_IMAGE=ros:${ROS_DISTRO}-ros-base
-FROM ${BASE_IMAGE} AS base
-
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-ARG WB_HUMANOID_MPC_DIR="/wb_humanoid_mpc_ws"
-ARG PYTHON_VERSION=3.12
+FROM osrf/ros:jazzy-desktop-full
 ENV DEBIAN_FRONTEND=noninteractive
-ENV ROS_DISTRO=${ROS_DISTRO}
+ARG PYTHON_VERSION=3.12
+ARG ROS_DISTRO=jazzy
+ARG WB_HUMANOID_MPC_DIR="/wb_humanoid_mpc_ws"
 
+# Layer for stable base dependencies that rarely change
 # Install system dependencies, ROS, Python, and development tools in a single step
+# Core toolchain
+# analysis tools
+    # SSH and utilities
+    # 图形测试工具
+    # Recommended C++ tools
+    # basis library
+    # Python
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl gnupg2 lsb-release software-properties-common \
-    locales \
+    build-essential \
+    gcc \
+    g++ \
+    gdb \
+    cmake \
+    valgrind \
+    cppcheck \
+    openssh-server \
     git \
+    vim \
+    curl \
+    unzip \
+    zip \
+    wget \    
+    ca-certificates \    
+    sudo \
+    gosu \
+    gnupg2 \
+    lsb-release \ 
+    locales \
     x11-apps \
     mesa-utils \
     gettext-base \
+    software-properties-common \
+    linux-tools-common \
+    libeigen3-dev \
+    python3 \
+    python3-pip \    
     && rm -rf /var/lib/apt/lists/*
 
 COPY dependencies.txt /tmp/dependencies.txt
-
 RUN apt-get update && \
-    envsubst < /tmp/dependencies.txt | xargs apt-get install -y --no-install-recommends && \
+    if [ -s /tmp/dependencies.txt ]; then \
+        envsubst < /tmp/dependencies.txt | xargs apt-get install -y --no-install-recommends; \
+    fi && \
     rm -rf /var/lib/apt/lists/*
 
-# Set default shell to bash
-SHELL ["/bin/bash", "-c"]
+
+# 4. 配置 NVIDIA 运行时环境变量
+# 即使没有 CUDA Toolkit，这两个变量告诉 nvidia-container-toolkit 注入驱动和图形库
+ENV NVIDIA_VISIBLE_DEVICES=all
+ENV NVIDIA_DRIVER_CAPABILITIES=compute,graphics,utility,display
+
+# Create a non-root user for development
+ARG HOST_UID=1000
+ARG HOST_GID=1000
+
+# Set up SSH daemon directory
+RUN mkdir -p /var/run/sshd
+
+# Modified to use ARG and add to root group
+RUN (getent passwd $HOST_UID | cut -d: -f1 | xargs -r userdel -f) && \
+    (getent group $HOST_GID | cut -d: -f1 | xargs -r groupdel) && \
+    groupadd -g $HOST_GID dev && \
+    useradd -m -s /bin/bash -u $HOST_UID -g $HOST_GID -G root,sudo dev && \
+    echo 'root:root' | chpasswd && \
+    echo 'dev:dev' | chpasswd && \
+    echo 'dev ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Configure SSH to permit root login with a password
+# [修改点] 将默认监听端口从 22 改为 2222
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#Port 22/Port 2222/' /etc/ssh/sshd_config
+
+EXPOSE 2222
+
+# Layer for frequently updated libraries.
+# Place any library you expect to update often here.
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     && rm -rf /var/lib/apt/lists/*
+
+# 5. 创建启动脚本 (Entrypoint) 
+# 逻辑：Root 启动 SSH -> 降权切换 dev -> 执行命令
+RUN echo '#!/bin/bash\n\
+# [新增] 自动设置 XDG_RUNTIME_DIR 以解决 GLFW/MuJoCo 报错\n\
+export XDG_RUNTIME_DIR=/tmp/runtime-dev\n\
+mkdir -p $XDG_RUNTIME_DIR\n\
+chmod 700 $XDG_RUNTIME_DIR\n\
+\n\
+# 将环境变量保存到 /etc/environment，供 SSH 使用\n\
+env | grep "^DISPLAY" >> /etc/environment\n\
+# [新增] 也将 XDG 变量保存给 SSH\n\
+echo "XDG_RUNTIME_DIR=/tmp/runtime-dev" >> /etc/environment\n\
+\n\
+# add dev for vscode-server\n\
+chown -R dev:dev /home/dev/.vscode-server 2>/dev/null || true \n\
+# [修复] 自动 source ROS 环境变量\n\
+if ! grep -q "source /opt/ros/$ROS_DISTRO/setup.bash" /home/dev/.bashrc; then\n\
+    echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> /home/dev/.bashrc\n\
+fi\n\
+# Start SSH service\n\
+service ssh start\n\
+\n\
+# Switch to dev user and execute command\n\
+exec gosu dev "$@"' > /usr/local/bin/entrypoint.sh && \
+    chmod +x /usr/local/bin/entrypoint.sh
+
 
 # Set up environment variables
 ENV CMAKE_PREFIX_PATH="/opt/ros/${ROS_DISTRO}:${CMAKE_PREFIX_PATH}"
-ENV DISPLAY=${DISPLAY} QT_X11_NO_MITSHM=1
 
-# Set up user and workspace
 WORKDIR ${WB_HUMANOID_MPC_DIR}
 RUN mkdir -p ${WB_HUMANOID_MPC_DIR}/src/wb_humanoid_mpc
+RUN chown -R dev:dev $WB_HUMANOID_MPC_DIR
 
-# Ensure correct UID/GID
-RUN if ! getent group $GROUP_ID > /dev/null; then groupadd --gid $GROUP_ID devgroup; fi && \
-    if ! getent passwd $USER_ID > /dev/null; then useradd --uid $USER_ID --gid $GROUP_ID --create-home devuser; fi && \
-    chown -R $USER_ID:$GROUP_ID .
-
-# Copy the Makefile and other necessary files
-COPY . ${WB_HUMANOID_MPC_DIR}/src/wb_humanoid_mpc
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["tail", "-f", "/dev/null"]
