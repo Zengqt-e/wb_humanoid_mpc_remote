@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ROS2 Debug: Attach to humanoid_centroidal_mpc_ros2 mpcsqp node",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "/wb_humanoid_mpc_ws/install/humanoid_centroidal_mpc_ros2/lib/humanoid_centroidal_mpc_ros2/humanoid_centroidal_mpc_sqp_node",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

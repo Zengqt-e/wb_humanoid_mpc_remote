@@ -57,6 +57,15 @@ int main(int argc, char** argv) {
 
   rclcpp::init(argc, argv);
 
+  // 打印提示
+    printf("====== DEBUG MODE: Waiting 20 seconds for Debugger Attach ======\n");
+    printf("====== PID: %d ======\n", getpid()); // 打印 PID 方便确认
+    
+    // 睡眠 20 秒，给您充足的时间去 VS Code 点击 "Attach"
+    std::this_thread::sleep_for(std::chrono::seconds(30));
+    
+    printf("====== Resuming Execution ======\n");
+
   // Robot interface
   CentroidalMpcInterface interface(taskFile, urdfFile, referenceFile, true);
 

@@ -1,0 +1,63 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${workspaceFolder}/.vscode/browse.vc.db",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/opt/ros/jazzy/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/humanoid_nmpc/humanoid_centroidal_mpc/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/humanoid_nmpc/humanoid_centroidal_mpc_ros2/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/humanoid_nmpc/humanoid_centroidal_mpc_test/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/humanoid_nmpc/humanoid_common_mpc/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/humanoid_nmpc/humanoid_common_mpc_ros2/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/humanoid_nmpc/humanoid_wb_mpc/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/magic_enum/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_core/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_ddp/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_frank_wolfe/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_ipm/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_mpc/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_mpcnet/ocs2_ballbot_mpcnet/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_mpcnet/ocs2_legged_robot_mpcnet/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_mpcnet/ocs2_mpcnet_core/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_oc/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_perceptive/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_pinocchio/ocs2_centroidal_model/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_pinocchio/ocs2_pinocchio_interface/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_ballbot/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_ballbot_ros/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_double_integrator/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_double_integrator_ros/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_legged_robot/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_legged_robot_ros/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_perceptive_anymal/ocs2_anymal_commands/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_perceptive_anymal/ocs2_anymal_loopshaping_mpc/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_perceptive_anymal/ocs2_anymal_models/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_perceptive_anymal/ocs2_anymal_mpc/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_perceptive_anymal/ocs2_quadruped_interface/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_perceptive_anymal/ocs2_quadruped_loopshaping_interface/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_perceptive_anymal/ocs2_switched_model_interface/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_examples/ocs2_perceptive_anymal/segmented_planes_terrain_model/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_robotic_tools/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_ros2_interfaces/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_slp/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_sqp/hpipm_catkin/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_sqp/ocs2_sqp/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_test_tools/ocs2_qp_solver/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/lib/ocs2_ros2/ocs2_thirdparty/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/robot_runtime/mujoco_sim_interface/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/robot_runtime/robot_core/include/**",
+        "/home/zengqt/Projects_Linux/Robot/wb_humanoid/humanoid_mpc_ws/src/wb_humanoid_mpc_remote/robot_runtime/robot_model/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ros2",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++17"
+    }
+  ],
+  "version": 4
+}

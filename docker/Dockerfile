@@ -108,13 +108,20 @@ fi\n\
 # Start SSH service\n\
 service ssh start\n\
 \n\
+# update dev .bashrc\n\
+echo "" >> /home/dev/.bashrc && \n\
+echo "# 只保留路径的最后两个层级" >> /home/dev/.bashrc && \n\
+echo "export PROMPT_DIRTRIM=2" >> /home/dev/.bashrc \n\
+\n\
 # Switch to dev user and execute command\n\
 exec gosu dev "$@"' > /usr/local/bin/entrypoint.sh && \
     chmod +x /usr/local/bin/entrypoint.sh
 
-
 # Set up environment variables
 ENV CMAKE_PREFIX_PATH="/opt/ros/${ROS_DISTRO}:${CMAKE_PREFIX_PATH}"
+# 这行命令等同于在所有 shell 启动时 export 了这个变量
+ENV PROMPT_DIRTRIM=2
+
 
 WORKDIR ${WB_HUMANOID_MPC_DIR}
 RUN mkdir -p ${WB_HUMANOID_MPC_DIR}/src/wb_humanoid_mpc

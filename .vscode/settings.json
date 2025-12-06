@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "*.m": "matlab",
+        "cmath": "cpp",
+        "string": "cpp",
+        "fstream": "cpp",
+        "memory": "cpp"
+    },
+    "python.autoComplete.extraPaths": [
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "python.analysis.extraPaths": [
+        "/opt/ros/jazzy/lib/python3.12/site-packages"
+    ],
+    "cmake.sourceDirectory": "/wb_humanoid_mpc_ws/src/wb_humanoid_mpc_remote/humanoid_nmpc/humanoid_common_mpc_ros2"
+}
